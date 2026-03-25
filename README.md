@@ -12,7 +12,7 @@ Automatización de limpieza de datos para pipelines ETL en entornos analíticos.
 **Herramienta para limpieza automática de datasets Excel/CSV**
 
 ### Funcionalidades Principales
-- **6 pasos ETL secuenciales**: Duplicados, nulos, texto, fechas, validaciones
+- **8 pasos ETL avanzados**: Duplicados, nulos, texto (español+regex), fechas, nums, reglas negocio (precio/cant>0)
 - **Multi-formato**: CSV, XLS, XLSX
 - **Configuración flexible**: CLI + interactivo
 - **Logging completo**: Auditoría en `limpieza.log`
@@ -22,13 +22,12 @@ Automatización de limpieza de datos para pipelines ETL en entornos analíticos.
 ## Estructura del Proyecto
 
 ```
-Limpieza_de_Datos/
-├── Limpieza_Datos.py     ← Módulo principal (núcleo)
-├── limpia_batch.py       ← Procesamiento masivo carpetas
-├── test_excel.py         ← Pruebas rápidas individuales
-├── README.md             ← Esta documentación
+LIMPIEZA_DE_DATOS/
+├── Limpieza_Datos.py     ← Módulo principal (núcleo ETL)
+├── limpia_batch.py       ← Procesamiento masivo (batch)
+├── README.md             ← Documentación
 ├── LICENSE.md            ← Licencia MIT
-└── limpieza.log          ← Logs automáticos (generado)
+└── limpieza.log          ← Logs generados (runtime)
 ```
 
 ---
@@ -56,8 +55,8 @@ python Limpienza_Datos.py -h
 # Limpieza básica
 python Limpienza_Datos.py -i datos.xlsx
 
-# Config avanzada
-python Limpienza_Datos.py -i ventas.xlsx -o ventas_limpias.csv --nulos fill_mean --min-num 0.01
+# Config avanzada (negocio)
+python Limpieza_Datos.py -i totem.xlsx -o totem_limpio.csv --nulos fill_mean --min-num 0.01
 ```
 
 ### 2. **Batch Masivo (múltiples archivos)**
@@ -67,11 +66,9 @@ python Limpienza_Datos.py -i ventas.xlsx -o ventas_limpias.csv --nulos fill_mean
 3. Config interactiva → Auto-procesa TODOS
 ```
 
-### 3. **Test Rápido (demo)**
-```bash
-python test_excel.py
-# Modifica ruta_excel en código → Ejecuta instantáneo
-```
+### 3. **Ejemplos Rápidos**
+- Single: `python Limpieza_Datos.py -i archivo.xlsx`
+- Batch: `python limpia_batch.py carpeta/`
 
 ## Ejemplo Entrada/Salida
 
